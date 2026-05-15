@@ -1,154 +1,167 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { PROFILE } from "@/lib/data";
-import { EDITORIAL_EASE, viewportLoose } from "@/lib/motion";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Contact() {
+  const ref    = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
   return (
     <section
+      ref={ref}
       id="contato"
-      className="relative py-32 md:py-44 lg:py-56 px-6 md:px-10 lg:px-14 border-t border-hairline overflow-hidden"
+      className="relative bg-bg overflow-hidden"
+      style={{ padding: "clamp(5rem,10vh,9rem) clamp(2rem,6vw,6rem)" }}
     >
-      <div className="max-w-[1400px] mx-auto">
-        {/* Header */}
-        <div className="grid grid-cols-12 gap-6 mb-12 md:mb-16">
-          <div className="col-span-12 md:col-span-3">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={viewportLoose}
-              transition={{ duration: 1, ease: EDITORIAL_EASE }}
-            >
-              <span className="eyebrow text-bronze block mb-3">¶ Contato</span>
-              <span className="eyebrow text-ink-mute">Pg. 009 · Início</span>
-            </motion.div>
-          </div>
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={viewportLoose}
-            transition={{ duration: 1.4, ease: EDITORIAL_EASE }}
-            className="col-span-12 md:col-span-9 h-px bg-ink/15 self-center origin-left"
-          />
+      {/* Header */}
+      <motion.p
+        initial={{ opacity: 0, y: 16 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, ease: EASE }}
+        className="eyebrow"
+        style={{ marginBottom: "clamp(2rem,4vh,3.5rem)" }}
+      >
+        Contato
+      </motion.p>
+
+      {/* Big invite */}
+      <motion.h2
+        initial={{ opacity: 0, y: 32 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 1.1, ease: EASE }}
+        className="font-display italic font-light"
+        style={{
+          fontSize: "clamp(2.5rem,7vw,8rem)",
+          lineHeight: 0.92,
+          color: "#F0EBE0",
+          marginBottom: "clamp(1.5rem,3vh,2.5rem)",
+          maxWidth: "18ch",
+        }}
+      >
+        Vamos construir algo{" "}
+        <em style={{ color: "rgba(212,166,90,0.9)" }}>memorável</em>.
+      </motion.h2>
+
+      <motion.p
+        initial={{ opacity: 0, y: 16 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
+        className="font-light leading-relaxed"
+        style={{
+          fontSize: "clamp(0.85rem,1.2vw,1.1rem)",
+          color: "rgba(240,235,224,0.5)",
+          maxWidth: "44ch",
+          marginBottom: "clamp(2.5rem,5vh,4rem)",
+        }}
+      >
+        Estou aceitando novos projetos. Marcas que buscam propósito,
+        direção e estética editorial — me escreva.
+      </motion.p>
+
+      {/* Email CTA */}
+      <motion.a
+        initial={{ opacity: 0, y: 16 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.9, delay: 0.35, ease: EASE }}
+        href={`mailto:${PROFILE.email}?subject=Novo%20projeto%20—%20${PROFILE.brand}`}
+        className="link-underline inline-flex items-baseline"
+        style={{
+          gap: "clamp(0.75rem,2vw,1.5rem)",
+          fontSize: "clamp(1.5rem,4vw,5rem)",
+          fontFamily: "var(--font-display), serif",
+          fontStyle: "italic",
+          fontWeight: 300,
+          color: "#F0EBE0",
+          textDecoration: "none",
+          transition: "color 0.5s",
+          marginBottom: "clamp(3rem,7vh,6rem)",
+        }}
+        onMouseEnter={e => (e.currentTarget.style.color = "rgba(212,166,90,0.9)")}
+        onMouseLeave={e => (e.currentTarget.style.color = "#F0EBE0")}
+      >
+        {PROFILE.email}
+        <span aria-hidden style={{ color: "rgba(212,166,90,0.7)", fontSize: "0.6em", transition: "transform 0.5s" }}>→</span>
+      </motion.a>
+
+      {/* Info grid */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.9, delay: 0.5, ease: EASE }}
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))",
+          gap: 1,
+          background: "rgba(240,235,224,0.06)",
+          borderTop: "1px solid rgba(240,235,224,0.08)",
+          paddingTop: "clamp(2rem,4vh,3.5rem)",
+        }}
+      >
+        {/* Studio */}
+        <div className="bg-bg" style={{ padding: "clamp(1.5rem,3vw,2.5rem)" }}>
+          <span className="eyebrow block" style={{ marginBottom: "1rem", color: "rgba(212,166,90,0.6)" }}>
+            Estúdio
+          </span>
+          <p className="font-display italic" style={{ fontSize: "clamp(1rem,1.8vw,1.5rem)", color: "#F0EBE0", lineHeight: 1.3 }}>
+            {PROFILE.location.street}
+          </p>
+          <p style={{ fontSize: "0.78rem", color: "rgba(240,235,224,0.35)", marginTop: "0.5rem", lineHeight: 1.8 }}>
+            {PROFILE.location.neighborhood}<br />
+            {PROFILE.location.city} — {PROFILE.location.state}
+          </p>
         </div>
 
-        {/* Big invite */}
-        <div className="grid grid-cols-12 gap-6 mb-20 md:mb-32">
-          <div className="hidden md:block md:col-span-3" />
-          <div className="col-span-12 md:col-span-9">
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={viewportLoose}
-              transition={{ duration: 1.2, ease: EDITORIAL_EASE }}
-              className="font-display text-display-md text-ink leading-[0.92]"
-            >
-              Vamos construir
-              <br />
-              <em className="text-bronze">algo memorável</em>
-              <span className="text-bronze">.</span>
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={viewportLoose}
-              transition={{
-                duration: 1,
-                delay: 0.3,
-                ease: EDITORIAL_EASE,
-              }}
-              className="mt-8 md:mt-10 text-lg md:text-xl text-ink-soft leading-relaxed max-w-2xl font-light"
-            >
-              Estou aceitando novos projetos para o próximo ciclo. Marcas que
-              buscam <em className="font-display text-bronze">propósito</em>,
-              direção e estética editorial — me escreva.
-            </motion.p>
-
-            <motion.a
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={viewportLoose}
-              transition={{
-                duration: 1,
-                delay: 0.5,
-                ease: EDITORIAL_EASE,
-              }}
-              href={`mailto:${PROFILE.email}?subject=Novo%20projeto%20—%20${PROFILE.brand}`}
-              className="group inline-flex items-baseline gap-4 md:gap-6 mt-10 md:mt-14 font-display italic text-3xl md:text-5xl lg:text-6xl text-ink hover:text-bronze transition-colors duration-700 border-b-2 border-ink hover:border-bronze pb-2 md:pb-3"
-            >
-              {PROFILE.email}
-              <span
-                className="text-bronze text-2xl md:text-3xl transition-transform duration-700 group-hover:translate-x-2"
-                aria-hidden
-              >
-                →
-              </span>
-            </motion.a>
-          </div>
+        {/* Diretos */}
+        <div className="bg-bg" style={{ padding: "clamp(1.5rem,3vw,2.5rem)" }}>
+          <span className="eyebrow block" style={{ marginBottom: "1rem", color: "rgba(212,166,90,0.6)" }}>
+            Diretos
+          </span>
+          <a
+            href={`mailto:${PROFILE.email}`}
+            className="link-underline block font-display italic"
+            style={{ fontSize: "clamp(1rem,1.8vw,1.5rem)", color: "#F0EBE0", textDecoration: "none", transition: "color 0.4s" }}
+            onMouseEnter={e => (e.currentTarget.style.color = "rgba(212,166,90,0.9)")}
+            onMouseLeave={e => (e.currentTarget.style.color = "#F0EBE0")}
+          >
+            {PROFILE.email}
+          </a>
+          <a
+            href={`tel:${PROFILE.phone.replace(/\s/g, "")}`}
+            style={{ display: "block", fontSize: "0.78rem", color: "rgba(240,235,224,0.35)", marginTop: "0.5rem", textDecoration: "none", transition: "color 0.3s" }}
+            onMouseEnter={e => (e.currentTarget.style.color = "rgba(240,235,224,0.7)")}
+            onMouseLeave={e => (e.currentTarget.style.color = "rgba(240,235,224,0.35)")}
+          >
+            {PROFILE.phone}
+          </a>
         </div>
 
-        {/* Contact details grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportLoose}
-          transition={{ duration: 1, ease: EDITORIAL_EASE }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-px bg-hairline-strong border border-hairline-strong rounded-sm overflow-hidden"
-        >
-          <div className="bg-cream p-8 md:p-10 min-h-[200px] flex flex-col justify-between">
-            <span className="eyebrow text-bronze">¶ Estúdio</span>
-            <div className="mt-6">
-              <p className="font-display italic text-xl md:text-2xl text-ink leading-tight">
-                {PROFILE.location.street}
-              </p>
-              <p className="text-sm text-ink-mute mt-2">
-                {PROFILE.location.neighborhood} — {PROFILE.location.city},{" "}
-                {PROFILE.location.state}
-              </p>
-              <p className="text-sm text-ink-mute">
-                CEP {PROFILE.location.zip}
-              </p>
-            </div>
-          </div>
-
-          <div className="bg-cream p-8 md:p-10 min-h-[200px] flex flex-col justify-between">
-            <span className="eyebrow text-bronze">¶ Diretos</span>
-            <div className="mt-6 space-y-3">
+        {/* Social */}
+        <div className="bg-bg" style={{ padding: "clamp(1.5rem,3vw,2.5rem)" }}>
+          <span className="eyebrow block" style={{ marginBottom: "1rem", color: "rgba(212,166,90,0.6)" }}>
+            Social
+          </span>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem 1rem" }}>
+            {Object.entries(PROFILE.social).map(([key, url]) => (
               <a
-                href={`mailto:${PROFILE.email}`}
-                className="block font-display italic text-xl md:text-2xl text-ink hover:text-bronze transition-colors duration-500 link-underline"
+                key={key}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline font-display italic"
+                style={{ fontSize: "clamp(0.9rem,1.5vw,1.3rem)", color: "rgba(240,235,224,0.7)", textDecoration: "none", transition: "color 0.3s" }}
+                onMouseEnter={e => (e.currentTarget.style.color = "#F0EBE0")}
+                onMouseLeave={e => (e.currentTarget.style.color = "rgba(240,235,224,0.7)")}
               >
-                {PROFILE.email}
+                {key.charAt(0).toUpperCase() + key.slice(1)}
               </a>
-              <a
-                href={`tel:${PROFILE.phone.replace(/\s/g, "")}`}
-                className="block text-sm text-ink-mute hover:text-ink transition-colors duration-500"
-              >
-                {PROFILE.phone}
-              </a>
-            </div>
+            ))}
           </div>
-
-          <div className="bg-cream p-8 md:p-10 min-h-[200px] flex flex-col justify-between">
-            <span className="eyebrow text-bronze">¶ Social</span>
-            <div className="mt-6 grid grid-cols-2 gap-y-2 gap-x-4">
-              {Object.entries(PROFILE.social).map(([key, url]) => (
-                <a
-                  key={key}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-display italic text-lg md:text-xl text-ink hover:text-bronze transition-colors duration-500 link-underline"
-                >
-                  {key.charAt(0).toUpperCase() + key.slice(1)}
-                </a>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
     </section>
   );
 }

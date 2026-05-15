@@ -1,147 +1,173 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useMotionTemplate } from "framer-motion";
 import { PROFILE } from "@/lib/data";
-import { EDITORIAL_EASE, letterReveal } from "@/lib/motion";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
+const LETTERS = "MARTINS".split("");
 
 export function Hero() {
-  const letters = PROFILE.brand.split("");
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.45], [1, 0]);
+  const y       = useTransform(scrollYProgress, [0, 0.45], [0, -60]);
+  const scale   = useTransform(scrollYProgress, [0, 0.45], [1, 0.97]);
+  const blurPx  = useTransform(scrollYProgress, [0, 0.45], [0, 12]);
+  const filter  = useMotionTemplate`blur(${blurPx}px)`;
 
   return (
     <section
+      ref={ref}
       id="hero"
-      className="relative min-h-screen flex items-center justify-center px-6 md:px-10 lg:px-14 pt-24 pb-10 overflow-hidden"
+      className="relative h-screen flex items-center justify-center overflow-hidden bg-bg"
     >
-      {/* Decorative editorial frame numbers */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, delay: 0.6, ease: EDITORIAL_EASE }}
-        className="absolute top-28 md:top-32 left-6 md:left-10 lg:left-14 eyebrow"
-      >
-        <span className="block text-ink-mute mb-2">Vol. I · MMXXVI</span>
-        <span className="block text-bronze/70">Edição Editorial</span>
-      </motion.div>
+      {/* Vignette */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 70% 70% at 50% 50%, transparent 0%, rgba(10,10,9,0.55) 100%)" }}
+      />
 
+      {/* Scroll parallax wrapper */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, delay: 0.7, ease: EDITORIAL_EASE }}
-        className="absolute top-28 md:top-32 right-6 md:right-10 lg:right-14 text-right eyebrow"
+        style={{ opacity, y, scale, filter }}
+        className="relative z-10 text-center w-full"
       >
-        <span className="block text-ink-mute mb-2">{PROFILE.location.city}</span>
-        <span className="block text-bronze/70">{PROFILE.location.country}</span>
-      </motion.div>
-
-      {/* Center stack */}
-      <div className="relative z-10 text-center w-full max-w-[1400px] mx-auto">
-        {/* Italic greeting */}
-        <div className="overflow-hidden mb-3 md:mb-5">
+        {/* Prazer, */}
+        <div className="overflow-hidden" style={{ marginBottom: "clamp(0.4rem,1vh,0.8rem)" }}>
           <motion.span
             initial={{ y: "110%" }}
             animate={{ y: 0 }}
-            transition={{ duration: 1.1, delay: 0.3, ease: EDITORIAL_EASE }}
-            className="block font-display italic text-base md:text-xl lg:text-2xl text-ink-mute tracking-[0.42em]"
+            transition={{ duration: 0.9, delay: 0.1, ease: EASE }}
+            className="block font-display italic font-light"
+            style={{ fontSize: "clamp(0.9rem,1.8vw,1.5rem)", letterSpacing: "0.5em", color: "rgba(240,235,224,0.35)" }}
           >
             {PROFILE.greeting}
           </motion.span>
         </div>
 
-        {/* Massive MARTINS */}
-        <h1 className="font-sans font-black text-ink leading-[0.82] tracking-tightest text-display-xl flex justify-center items-end">
-          {letters.map((letter, i) => (
+        {/* MARTINS. */}
+        <h1
+          className="font-sans font-black flex justify-center items-end"
+          style={{ fontSize: "clamp(5rem,20vw,26rem)", lineHeight: 0.82, letterSpacing: "-0.03em" }}
+        >
+          {LETTERS.map((letter, i) => (
             <motion.span
-              key={`${letter}-${i}`}
-              initial="hidden"
-              animate="visible"
-              variants={letterReveal}
-              transition={{
-                duration: 1.4,
-                ease: EDITORIAL_EASE,
-                delay: 0.4 + i * 0.08,
-              }}
+              key={i}
+              initial={{ y: "120%", scaleY: 1.3, scaleX: 0.85, opacity: 0, filter: "blur(12px)" }}
+              animate={{ y: 0, scaleY: 1, scaleX: 1, opacity: 1, filter: "blur(0px)" }}
+              transition={{ duration: 1.4, delay: 0.3 + i * 0.08, ease: EASE }}
               className="inline-block"
             >
               {letter}
             </motion.span>
           ))}
           <motion.span
-            initial={{ opacity: 0, scale: 2, y: "120%" }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 1.1, ease: EDITORIAL_EASE }}
-            className="inline-block text-bronze ml-1"
+            initial={{ y: "120%", scale: 2, opacity: 0, filter: "blur(8px)" }}
+            animate={{ y: 0, scale: 1, opacity: 1, filter: "blur(0px)" }}
+            transition={{ duration: 1.2, delay: 1.1, ease: EASE }}
+            className="inline-block ml-1"
+            style={{ color: "rgba(240,235,224,0.4)" }}
           >
             .
           </motion.span>
         </h1>
 
-        {/* Subline with rule */}
-        <div className="mt-6 md:mt-10 flex items-center justify-center gap-4 md:gap-6">
+        {/* DESIGN DE TUDO */}
+        <div
+          className="flex items-center justify-center"
+          style={{ gap: "clamp(0.6rem,1.2vw,1rem)", marginTop: "clamp(0.5rem,1.2vh,1rem)" }}
+        >
           <motion.span
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
-            transition={{ duration: 1, delay: 1.5, ease: EDITORIAL_EASE }}
-            className="block h-px w-12 md:w-20 bg-bronze/40 origin-center"
+            transition={{ duration: 0.7, delay: 1.6, ease: "easeOut" }}
+            className="block h-px origin-center"
+            style={{ width: "clamp(20px,3.5vw,45px)", background: "rgba(240,235,224,0.15)" }}
           />
           <div className="overflow-hidden">
             <motion.span
               initial={{ y: "110%" }}
               animate={{ y: 0 }}
-              transition={{ duration: 1, delay: 1.4, ease: EDITORIAL_EASE }}
-              className="block eyebrow text-ink-mute"
+              transition={{ duration: 0.7, delay: 1.5, ease: EASE }}
+              className="block"
+              style={{ fontSize: "clamp(0.55rem,0.95vw,0.78rem)", letterSpacing: "0.6em", color: "rgba(240,235,224,0.25)" }}
             >
-              {PROFILE.role}
+              {PROFILE.tagline.toUpperCase()}
             </motion.span>
           </div>
           <motion.span
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
-            transition={{ duration: 1, delay: 1.5, ease: EDITORIAL_EASE }}
-            className="block h-px w-12 md:w-20 bg-bronze/40 origin-center"
+            transition={{ duration: 0.7, delay: 1.6, ease: "easeOut" }}
+            className="block h-px origin-center"
+            style={{ width: "clamp(20px,3.5vw,45px)", background: "rgba(240,235,224,0.15)" }}
           />
         </div>
-
-        {/* Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 1.7, ease: EDITORIAL_EASE }}
-          className="mt-4 md:mt-6 font-display italic text-2xl md:text-4xl lg:text-5xl text-bronze/90"
-        >
-          — {PROFILE.tagline.toLowerCase()}.
-        </motion.p>
-      </div>
-
-      {/* Bottom — scroll hint + ghost watermark */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 2.4 }}
-        className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-ink-mute"
-      >
-        <span className="font-display italic text-xs tracking-[0.42em]">
-          role
-        </span>
-        <div className="w-px h-9 bg-gradient-to-b from-transparent via-bronze to-transparent animate-pulse-hint" />
       </motion.div>
 
+      {/* Corner: top-left */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.6, ease: EASE }}
+        className="absolute eyebrow"
+        style={{ top: "clamp(1.8rem,3.5vh,2.5rem)", left: "clamp(1.5rem,3vw,2.2rem)", color: "rgba(240,235,224,0.18)" }}
+      >
+        <span className="block" style={{ marginBottom: "0.35rem" }}>Vol. I · MMXXVI</span>
+        <span className="block" style={{ color: "rgba(240,235,224,0.10)" }}>Edição Editorial</span>
+      </motion.div>
+
+      {/* Corner: top-right */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.7, ease: EASE }}
+        className="absolute text-right eyebrow"
+        style={{ top: "clamp(1.8rem,3.5vh,2.5rem)", right: "clamp(1.5rem,3vw,2.2rem)", color: "rgba(240,235,224,0.18)" }}
+      >
+        <span className="block" style={{ marginBottom: "0.35rem" }}>{PROFILE.location.city}</span>
+        <span className="block" style={{ color: "rgba(240,235,224,0.10)" }}>{PROFILE.location.country}</span>
+      </motion.div>
+
+      {/* Bottom-left */}
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, delay: 2.6 }}
-        className="absolute bottom-6 md:bottom-8 right-6 md:right-10 lg:right-14 eyebrow text-ink-mute"
+        transition={{ duration: 1, delay: 2.5 }}
+        className="absolute eyebrow"
+        style={{ bottom: "clamp(1.5rem,3vh,2.5rem)", left: "clamp(1.5rem,3vw,2.2rem)", color: "rgba(240,235,224,0.18)" }}
+      >
+        Portfolio · Direção
+      </motion.span>
+
+      {/* Bottom-right */}
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 2.5 }}
+        className="absolute eyebrow"
+        style={{ bottom: "clamp(1.5rem,3vh,2.5rem)", right: "clamp(1.5rem,3vw,2.2rem)", color: "rgba(240,235,224,0.18)" }}
       >
         © {new Date().getFullYear()} {PROFILE.brand}
       </motion.span>
 
-      <motion.span
+      {/* Scroll hint — bottom center */}
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, delay: 2.6 }}
-        className="absolute bottom-6 md:bottom-8 left-6 md:left-10 lg:left-14 eyebrow text-ink-mute"
+        transition={{ duration: 0.6, delay: 2.8 }}
+        className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center"
+        style={{ bottom: "clamp(1.5rem,3vh,2.5rem)", gap: "0.4rem", color: "rgba(240,235,224,0.18)" }}
       >
-        Portfolio · Direção
-      </motion.span>
+        <span className="font-display italic" style={{ fontSize: "0.65rem", letterSpacing: "0.35em" }}>scroll</span>
+        <div
+          className="animate-pulse-hint"
+          style={{ width: 1, height: 36, background: "linear-gradient(to bottom, transparent, rgba(240,235,224,0.4))" }}
+        />
+      </motion.div>
     </section>
   );
 }

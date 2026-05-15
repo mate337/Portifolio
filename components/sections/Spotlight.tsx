@@ -1,195 +1,137 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { WORKS } from "@/lib/data";
-import { EDITORIAL_EASE, viewportLoose } from "@/lib/motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
+import { TICKER_ITEMS } from "@/lib/data";
 
-// Featured cases — sticky, cinematic
-const FEATURED = WORKS.slice(0, 4);
+const EASE    = [0.16, 1, 0.3, 1] as const;
+const PHRASES = [
+  "A marca que Fala.",
+  "A marca que Comunica.",
+  "A marca que Simplifica.",
+  "Aproximação & Diversidade.",
+];
 
 export function Spotlight() {
+  const ref    = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: false, margin: "-20%" });
+  const [phraseIdx, setPhraseIdx] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const t = setInterval(() => setPhraseIdx(i => (i + 1) % PHRASES.length), 2600);
+    return () => clearInterval(t);
+  }, [inView]);
+
   return (
     <section
-      id="destaques"
-      className="relative border-t border-hairline"
+      ref={ref}
+      id="spotlight"
+      className="relative overflow-hidden flex flex-col"
+      style={{ minHeight: "100vh", background: "#8DC63F" }}
     >
-      {/* Section header */}
-      <div className="px-6 md:px-10 lg:px-14 py-32 md:py-44">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-12 gap-6">
-            <div className="col-span-12 md:col-span-3">
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewportLoose}
-                transition={{ duration: 1, ease: EDITORIAL_EASE }}
-              >
-                <span className="eyebrow text-bronze block mb-3">
-                  ¶ Estudos em destaque
-                </span>
-                <span className="eyebrow text-ink-mute">
-                  Pg. 006 · Cases selecionados
-                </span>
-              </motion.div>
-            </div>
-            <div className="col-span-12 md:col-span-9 md:pl-10">
-              <motion.h2
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewportLoose}
-                transition={{ duration: 1.1, ease: EDITORIAL_EASE }}
-                className="font-display text-display-sm text-ink"
-              >
-                Quatro casos. Quatro <em className="text-bronze">universos</em>{" "}
-                distintos — mesma obsessão por detalhe.
-              </motion.h2>
-            </div>
-          </div>
-        </div>
+      {/* Top-left label */}
+      <div
+        className="absolute"
+        style={{ top: "clamp(2rem,4vh,3.5rem)", left: "clamp(2rem,5vw,5.5rem)", zIndex: 4 }}
+      >
+        <span
+          className="block font-mono"
+          style={{ fontSize: "clamp(0.55rem,0.75vw,0.65rem)", letterSpacing: "0.5em", textTransform: "uppercase", color: "rgba(1,69,40,0.55)" }}
+        >
+          Cotton Star
+        </span>
+        <span
+          className="block font-mono"
+          style={{ fontSize: "clamp(0.55rem,0.75vw,0.65rem)", letterSpacing: "0.5em", textTransform: "uppercase", color: "rgba(1,69,40,0.35)", marginTop: "0.3rem" }}
+        >
+          Gestão & Pessoas
+        </span>
       </div>
 
-      {/* Featured cases — alternating layout */}
-      {FEATURED.map((work, i) => {
-        const isReversed = i % 2 === 1;
-        return (
-          <article
-            key={work.slug}
-            className="relative px-6 md:px-10 lg:px-14 py-20 md:py-32 border-t border-hairline overflow-hidden"
+      {/* Top-right label */}
+      <div
+        className="absolute text-right"
+        style={{ top: "clamp(2rem,4vh,3.5rem)", right: "clamp(2rem,5vw,5.5rem)", zIndex: 4 }}
+      >
+        <span
+          className="block font-mono"
+          style={{ fontSize: "clamp(0.55rem,0.75vw,0.65rem)", letterSpacing: "0.5em", textTransform: "uppercase", color: "rgba(1,69,40,0.55)" }}
+        >
+          Branding · RH
+        </span>
+        <span
+          className="block font-mono"
+          style={{ fontSize: "clamp(0.55rem,0.75vw,0.65rem)", letterSpacing: "0.5em", textTransform: "uppercase", color: "rgba(1,69,40,0.35)", marginTop: "0.3rem" }}
+        >
+          2024
+        </span>
+      </div>
+
+      {/* Center phrase */}
+      <div className="flex-1 flex items-center justify-center px-8">
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={phraseIdx}
+            initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -14, filter: "blur(4px)" }}
+            transition={{ duration: 0.85, ease: EASE }}
+            className="font-display italic font-light text-center"
+            style={{
+              fontSize: "clamp(1.8rem,4vw,4.5rem)",
+              color: "#014528",
+              letterSpacing: "0.02em",
+              textShadow: "0 2px 20px rgba(141,198,63,0.4)",
+              maxWidth: "20ch",
+            }}
           >
-            <div className="max-w-[1400px] mx-auto">
-              <div
-                className={`grid grid-cols-12 gap-6 md:gap-12 items-center ${
-                  isReversed ? "md:[direction:rtl]" : ""
-                }`}
+            {PHRASES[phraseIdx]}
+          </motion.p>
+        </AnimatePresence>
+      </div>
+
+      {/* Progress dots */}
+      <div
+        className="absolute left-1/2 -translate-x-1/2 flex"
+        style={{ bottom: "clamp(4rem,7vh,6rem)", gap: "0.5rem" }}
+      >
+        {PHRASES.map((_, i) => (
+          <motion.span
+            key={i}
+            className="block rounded-full"
+            animate={{ opacity: i === phraseIdx ? 0.7 : 0.2, scale: i === phraseIdx ? 1.4 : 1 }}
+            transition={{ duration: 0.3 }}
+            style={{ width: 4, height: 4, background: "#014528" }}
+          />
+        ))}
+      </div>
+
+      {/* Ticker */}
+      <div
+        className="overflow-hidden"
+        style={{
+          height: "clamp(1.8rem,3vh,2.4rem)",
+          background: "rgba(1,69,40,0.14)",
+          backdropFilter: "blur(5px)",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <div className="marquee-inner" style={{ paddingLeft: "1rem" }}>
+          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
+            <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: "1rem" }}>
+              <span
+                className="font-mono"
+                style={{ fontSize: "clamp(0.48rem,0.62vw,0.55rem)", fontWeight: 800, letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}
               >
-                {/* Image card */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={viewportLoose}
-                  transition={{ duration: 1.4, ease: EDITORIAL_EASE }}
-                  className="col-span-12 md:col-span-6 [direction:ltr]"
-                >
-                  <div
-                    className="relative aspect-[4/5] rounded-sm overflow-hidden shadow-2xl"
-                    style={{ background: work.background }}
-                  >
-                    {/* Editorial decoration */}
-                    <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
-                      <div className="flex items-start justify-between">
-                        <span className="text-[0.6rem] tracking-[0.42em] uppercase text-cream/70 font-medium">
-                          Case · {work.index}
-                        </span>
-                        <span className="text-[0.6rem] tracking-[0.42em] uppercase text-cream/70 font-medium">
-                          {work.year}
-                        </span>
-                      </div>
-
-                      <div className="text-center">
-                        <span className="block font-display italic text-cream/60 text-xs md:text-sm tracking-[0.42em] mb-3 md:mb-5">
-                          {work.client.toUpperCase()}
-                        </span>
-                        <span className="block font-sans font-black text-cream text-4xl md:text-6xl lg:text-7xl tracking-tightest leading-[0.9]">
-                          {work.title}
-                        </span>
-                        {work.subtitle && (
-                          <span className="block font-display italic font-light text-cream/80 text-3xl md:text-5xl lg:text-6xl mt-2">
-                            {work.subtitle}
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="flex items-end justify-between">
-                        <span
-                          className="font-display italic text-cream/40 text-xl md:text-2xl"
-                          style={{ color: "rgba(244,239,230,0.4)" }}
-                        >
-                          {work.industry}
-                        </span>
-                        <span className="font-mono text-[0.55rem] tracking-[0.4em] uppercase text-cream/50">
-                          {String(i + 1).padStart(2, "0")} / {FEATURED.length}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Decorative grid lines */}
-                    <div
-                      className="absolute inset-0 pointer-events-none opacity-[0.07]"
-                      style={{
-                        backgroundImage:
-                          "linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)",
-                        backgroundSize: "48px 48px",
-                      }}
-                    />
-                  </div>
-                </motion.div>
-
-                {/* Content */}
-                <div className="col-span-12 md:col-span-6 [direction:ltr]">
-                  <motion.div
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={viewportLoose}
-                    transition={{
-                      duration: 1,
-                      delay: 0.2,
-                      ease: EDITORIAL_EASE,
-                    }}
-                  >
-                    <span className="eyebrow text-bronze block mb-4">
-                      Case · {work.index} / {String(FEATURED.length).padStart(2, "0")}
-                    </span>
-
-                    <h3 className="font-sans font-black text-display-xs text-ink tracking-tightest leading-[0.9] mb-2 md:mb-4">
-                      {work.client}
-                    </h3>
-                    <p className="font-display italic text-2xl md:text-3xl text-bronze mb-6 md:mb-8">
-                      — {work.category}
-                    </p>
-
-                    <p className="text-base md:text-lg text-ink-soft leading-[1.8] font-light mb-8 md:mb-10 max-w-xl">
-                      {work.description}
-                    </p>
-
-                    {/* Scope */}
-                    <div className="mb-8 md:mb-10">
-                      <span className="eyebrow text-ink-mute block mb-4">
-                        ¶ Escopo
-                      </span>
-                      <ul className="flex flex-wrap gap-2">
-                        {work.scope.map((item) => (
-                          <li
-                            key={item}
-                            className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 border border-hairline-strong rounded-full text-ink-soft hover:border-bronze hover:text-bronze transition-colors duration-500"
-                          >
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Metrics */}
-                    {work.metrics && (
-                      <div className="grid grid-cols-3 gap-4 md:gap-6 pt-6 md:pt-8 border-t border-hairline">
-                        {work.metrics.map((m) => (
-                          <div key={m.label}>
-                            <span className="block font-display italic text-3xl md:text-4xl text-bronze">
-                              {m.value}
-                            </span>
-                            <span className="block eyebrow text-ink-mute mt-1">
-                              {m.label}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </motion.div>
-                </div>
-              </div>
-            </div>
-          </article>
-        );
-      })}
+                {item}
+              </span>
+              <span style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.4rem" }}>×</span>
+            </span>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

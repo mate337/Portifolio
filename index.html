@@ -58,6 +58,53 @@ body::after{
 }
 .dot.on{background:rgba(240,235,224,.9);transform:scale(2.2)}
 
+/* ════ TOP NAV ════ */
+#topnav{
+  position:fixed;top:0;left:0;right:0;z-index:700;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:clamp(.85rem,1.6vh,1.25rem) clamp(1.4rem,3.5vw,2.8rem);
+  background:rgba(10,10,9,.42);
+  backdrop-filter:blur(16px) saturate(130%);
+  -webkit-backdrop-filter:blur(16px) saturate(130%);
+  border-bottom:1px solid rgba(240,235,224,.06);
+  opacity:0;transform:translateY(-100%);
+  transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1);
+  pointer-events:none;
+}
+#topnav.show{opacity:1;transform:translateY(0);pointer-events:auto}
+.tn-brand{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.62rem,.78vw,.74rem);
+  font-weight:800;letter-spacing:.42em;
+  color:rgba(240,235,224,.9);
+  text-decoration:none;cursor:none;
+  transition:color .4s cubic-bezier(.22,1,.36,1);
+}
+.tn-brand:hover{color:#F0EBE0}
+.tn-nav{display:flex;gap:clamp(1.2rem,2.6vw,2.8rem)}
+.tn-nav a{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.5rem,.66vw,.6rem);
+  font-weight:400;letter-spacing:.42em;
+  color:rgba(240,235,224,.5);
+  text-decoration:none;text-transform:uppercase;
+  cursor:none;position:relative;
+  transition:color .4s cubic-bezier(.22,1,.36,1);
+}
+.tn-nav a::after{
+  content:'';position:absolute;left:0;bottom:-6px;
+  width:100%;height:1px;background:rgba(240,235,224,.6);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .45s cubic-bezier(.22,1,.36,1);
+}
+.tn-nav a:hover{color:#F0EBE0}
+.tn-nav a:hover::after{transform:scaleX(1)}
+@media(max-width:600px){
+  .tn-nav{gap:1rem}
+  .tn-nav a{font-size:.5rem;letter-spacing:.3em}
+  .tn-brand{letter-spacing:.3em}
+}
+
 /* ════ HERO ════ */
 #hero{
   height:100vh;position:relative;overflow:hidden;
@@ -807,15 +854,16 @@ body::after{
 #bh-panel.active .bh-eyebrow{opacity:1;transform:translateY(0)}
 
 .bh-title{
-  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
-  font-size:clamp(3.5rem,8vw,10rem);
-  line-height:.88;letter-spacing:-.01em;
-  color:#F0EBE0;
   margin-bottom:clamp(1rem,2.5vh,2rem);
   opacity:0;transform:translateY(20px);
   transition:opacity .85s ease .3s,transform 1s cubic-bezier(.16,1,.3,1) .3s;
+  line-height:.88;
 }
 #bh-panel.active .bh-title{opacity:1;transform:translateY(0)}
+.bh-title svg{
+  display:block;width:clamp(220px,38vw,540px);height:auto;
+  filter:drop-shadow(0 2px 14px rgba(0,0,0,.35));
+}
 
 .bh-desc{
   font-size:clamp(.62rem,.82vw,.74rem);font-weight:300;
@@ -829,14 +877,25 @@ body::after{
 #bh-panel.active .bh-desc{opacity:1;transform:translateY(0)}
 
 .bh-role{
-  font-size:clamp(.48rem,.65vw,.56rem);font-weight:300;
-  letter-spacing:.25em;color:rgba(240,235,224,.28);
-  line-height:1.7;
-  padding-top:clamp(.8rem,1.5vh,1.2rem);
-  border-top:1px solid rgba(240,235,224,.08);
-  max-width:32ch;
+  font-size:clamp(.68rem,.92vw,.85rem);font-weight:400;
+  letter-spacing:.04em;color:rgba(240,235,224,.78);
+  line-height:1.75;
+  padding:clamp(1.2rem,2.4vh,2rem) 0 0 clamp(.9rem,1.5vw,1.4rem);
+  border-left:2px solid #D4A65A;
+  margin-top:clamp(.6rem,1.2vh,1rem);
+  max-width:46ch;
+  position:relative;
   opacity:0;transform:translateY(10px);
   transition:opacity .7s ease .65s,transform .8s cubic-bezier(.16,1,.3,1) .65s;
+}
+.bh-role::before{
+  content:'DESDOBRAMENTO';
+  display:block;
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.52rem,.7vw,.62rem);
+  font-weight:700;letter-spacing:.5em;
+  color:#D4A65A;
+  margin-bottom:clamp(.55rem,1vh,.85rem);
 }
 #bh-panel.active .bh-role{opacity:1;transform:translateY(0)}
 
@@ -1051,6 +1110,30 @@ body::after{
 }
 .wk-cta:hover{color:#F0EBE0;border-color:rgba(240,235,224,.6)}
 
+/* ── PiMa wordmark (Works slide 2) ── */
+.pima-mark{
+  font-family:'Inter',sans-serif;
+  letter-spacing:-.04em;
+  display:inline-flex;align-items:baseline;
+}
+.pima-mark .pm-p{font-family:'Cormorant Garamond',serif;font-weight:400;font-style:normal;color:#F0EBE0}
+.pima-mark .pm-i{font-family:'Inter',sans-serif;font-weight:400;color:#F0EBE0;margin:0 -.02em}
+.pima-mark .pm-m{font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic;color:#F0EBE0}
+.pima-mark .pm-a{font-family:'Inter',sans-serif;font-weight:400;color:#F0EBE0;margin-left:-.04em}
+.pima-mark .pm-d{font-family:'Inter',sans-serif;font-weight:400;color:rgba(240,235,224,.55)}
+
+.wk-subtitle{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.78rem,1.05vw,1.05rem);font-weight:300;
+  letter-spacing:.06em;color:rgba(240,235,224,.55);
+  margin:-.4rem 0 1.5rem;
+}
+.wk-subtitle em{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-weight:400;letter-spacing:.02em;color:rgba(240,235,224,.92);
+  font-size:1.05em;
+}
+
 .wk-header{
   position:absolute;top:clamp(2rem,4vh,4rem);left:clamp(2rem,6vw,7rem);right:clamp(2rem,6vw,7rem);
   display:flex;justify-content:space-between;align-items:center;
@@ -1089,6 +1172,16 @@ body::after{
 <div id="cd"></div>
 <div id="cr"></div>
 <div id="wm">MARTINS</div>
+
+<header id="topnav">
+  <a href="#" class="tn-brand" data-nav="hero">MARTINS.</a>
+  <nav class="tn-nav">
+    <a href="#" data-nav="about">Sobre</a>
+    <a href="#" data-nav="works">Projetos</a>
+    <a href="#" data-nav="universo">Universo</a>
+    <a href="#" data-nav="footer">Contato</a>
+  </nav>
+</header>
 
 <div id="dots">
   <div class="dot" data-i="0"></div>
@@ -1818,7 +1911,23 @@ body::after{
   <!-- Content -->
   <div class="bh-content">
     <div class="bh-eyebrow">PIÇARRAS — SANTA CATARINA</div>
-    <div class="bh-title">Bal<br>Harbour</div>
+    <div class="bh-title" aria-label="Bal Harbour">
+      <svg viewBox="0 0 540 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bal Harbour">
+        <defs>
+          <linearGradient id="bhGold" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F0EBE0"/>
+            <stop offset="1" stop-color="#E2D9C2"/>
+          </linearGradient>
+        </defs>
+        <text x="270" y="100" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-style="italic" font-weight="300" font-size="118" fill="url(#bhGold)" letter-spacing="-1">Bal</text>
+        <g stroke="#D4A65A" stroke-width="1" opacity=".6">
+          <line x1="120" y1="118" x2="220" y2="118"/>
+          <circle cx="270" cy="118" r="3" fill="#D4A65A" stroke="none"/>
+          <line x1="320" y1="118" x2="420" y2="118"/>
+        </g>
+        <text x="270" y="205" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-style="italic" font-weight="300" font-size="118" fill="url(#bhGold)" letter-spacing="-1">Harbour</text>
+      </svg>
+    </div>
     <div class="bh-desc">
       Autoral. Moderno. Natural. Artístico. Um empreendimento que traduz o morar contemporâneo em sua forma mais sofisticada, com vista permanente para o mar.
     </div>
@@ -1893,13 +2002,14 @@ body::after{
     </div>
   </div>
 
-  <!-- Slide 2: Cosmos Securitizadora -->
+  <!-- Slide 2: PiMa -->
   <div class="wk-slide" data-wk="1">
-    <div class="wk-bg" style="background:linear-gradient(135deg,#020818 0%,#0a1f5c 40%,#06102e 100%)"></div>
+    <div class="wk-bg" style="background:linear-gradient(135deg,#1a1814 0%,#3c3530 45%,#1a1814 100%)"></div>
     <div class="wk-overlay"></div>
     <div class="wk-content">
-      <p class="wk-cat">Branding · Finanças</p>
-      <h3 class="wk-title">COSMOS<br>SECURITIZADORA</h3>
+      <p class="wk-cat">Branding · Identidade Visual</p>
+      <h3 class="wk-title pima-mark"><span class="pm-p">P</span><span class="pm-i">i</span><span class="pm-m">M</span><span class="pm-a">a</span><span class="pm-d">.</span></h3>
+      <p class="wk-subtitle">O <em>melhor</em> e ponto.</p>
       <a class="wk-cta" href="https://www.behance.net/matheusmartins10" target="_blank" rel="noopener">Ver Projeto →</a>
     </div>
   </div>
@@ -2033,6 +2143,7 @@ const u2Panel    = document.getElementById('u2-panel');
 const wm       = document.getElementById('wm');
 const dotsEl   = document.getElementById('dots');
 const dotEls   = document.querySelectorAll('.dot');
+const topnav   = document.getElementById('topnav');
 
 // ══ SETUP ══
 spSpacer.style.height = (N + 0.6) * 100 + 'vh';
@@ -2154,6 +2265,7 @@ function onScroll() {
   // ── Fixed UI visibility ──
   wm.classList.toggle('show', !inHero);
   dotsEl.classList.toggle('show', !inHero);
+  topnav.classList.toggle('show', !inHero);
   spNum.classList.toggle('show', inSp);
   spCopy.classList.toggle('show', inSp);
   spBarEl.classList.toggle('show', inSp);
@@ -2284,9 +2396,25 @@ dotEls.forEach((d,i) => {
 });
 
 // ══ CURSOR enlarge on interactive ══
-document.querySelectorAll('.dot, #wm').forEach(el=>{
+document.querySelectorAll('.dot, #wm, .tn-brand, .tn-nav a, .wk-cta, .ft-nav a, .ft-social a').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cd.style.width=cd.style.height='16px'});
   el.addEventListener('mouseleave',()=>{cd.style.width=cd.style.height='7px'});
+});
+
+// ══ TOP NAV ──── scroll-to handlers ══
+document.querySelectorAll('#topnav [data-nav]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = a.dataset.nav;
+    const wh = window.innerHeight;
+    let target = 0;
+    if (t === 'hero')     target = 0;
+    if (t === 'about')    target = absTop(abSpacer) + wh*0.1;
+    if (t === 'works')    target = absTop(wrSpacer) + wh*0.1;
+    if (t === 'universo') target = universo.offsetTop;
+    if (t === 'footer')   target = document.getElementById('footer').offsetTop;
+    window.scrollTo({top: target, behavior:'smooth'});
+  });
 });
 
 /* ── Works slideshow ── */

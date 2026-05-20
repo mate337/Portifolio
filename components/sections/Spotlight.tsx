@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { WORKS } from "@/lib/data";
 import { EDITORIAL_EASE, viewportLoose } from "@/lib/motion";
@@ -89,13 +90,27 @@ export function Spotlight() {
                         <span className="block font-display italic text-cream/60 text-xs md:text-sm tracking-[0.42em] mb-3 md:mb-5">
                           {work.client.toUpperCase()}
                         </span>
-                        <span className="block font-sans font-black text-cream text-4xl md:text-6xl lg:text-7xl tracking-tightest leading-[0.9]">
-                          {work.title}
-                        </span>
-                        {work.subtitle && (
-                          <span className="block font-display italic font-light text-cream/80 text-3xl md:text-5xl lg:text-6xl mt-2">
-                            {work.subtitle}
-                          </span>
+                        {work.logo ? (
+                          <div className="relative w-full max-w-[480px] mx-auto aspect-[5/2]">
+                            <Image
+                              src={work.logo}
+                              alt={`Logotipo ${work.title} ${work.subtitle ?? ""}`.trim()}
+                              fill
+                              sizes="(max-width: 768px) 80vw, 480px"
+                              className="object-contain"
+                            />
+                          </div>
+                        ) : (
+                          <>
+                            <span className="block font-sans font-black text-cream text-4xl md:text-6xl lg:text-7xl tracking-tightest leading-[0.9]">
+                              {work.title}
+                            </span>
+                            {work.subtitle && (
+                              <span className="block font-display italic font-light text-cream/80 text-3xl md:text-5xl lg:text-6xl mt-2">
+                                {work.subtitle}
+                              </span>
+                            )}
+                          </>
                         )}
                       </div>
 
@@ -140,16 +155,55 @@ export function Spotlight() {
                       Case · {work.index} / {String(FEATURED.length).padStart(2, "0")}
                     </span>
 
-                    <h3 className="font-sans font-black text-display-xs text-ink tracking-tightest leading-[0.9] mb-2 md:mb-4">
-                      {work.client}
-                    </h3>
+                    {work.logo ? (
+                      <div className="mb-2 md:mb-4 max-w-[420px]">
+                        <div className="relative w-full aspect-[5/2]">
+                          <Image
+                            src={work.logo}
+                            alt={`Logotipo ${work.title} ${work.subtitle ?? ""}`.trim()}
+                            fill
+                            sizes="420px"
+                            className="object-contain object-left invert"
+                            style={{ filter: "invert(1) sepia(1) saturate(0.4) hue-rotate(-15deg) brightness(0.55)" }}
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <h3 className="font-sans font-black text-display-xs text-ink tracking-tightest leading-[0.9] mb-2 md:mb-4">
+                        {work.client}
+                      </h3>
+                    )}
                     <p className="font-display italic text-2xl md:text-3xl text-bronze mb-6 md:mb-8">
                       — {work.category}
                     </p>
 
-                    <p className="text-base md:text-lg text-ink-soft leading-[1.8] font-light mb-8 md:mb-10 max-w-xl">
+                    <p className="text-base md:text-lg text-ink-soft leading-[1.8] font-light mb-6 md:mb-8 max-w-xl">
                       {work.description}
                     </p>
+
+                    {/* Highlight — desdobramento */}
+                    {work.highlight && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={viewportLoose}
+                        transition={{
+                          duration: 1,
+                          delay: 0.3,
+                          ease: EDITORIAL_EASE,
+                        }}
+                        className="relative mb-10 md:mb-12 max-w-xl"
+                      >
+                        <div className="relative pl-6 md:pl-7 py-2 border-l-2 border-bronze">
+                          <span className="absolute -top-3 left-6 md:left-7 bg-cream px-2 eyebrow text-bronze">
+                            ¶ Desdobramento
+                          </span>
+                          <p className="font-display italic text-xl md:text-2xl lg:text-[1.65rem] text-ink leading-[1.45] first-letter:font-display first-letter:text-4xl first-letter:text-bronze first-letter:mr-1">
+                            {work.highlight}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
 
                     {/* Scope */}
                     <div className="mb-8 md:mb-10">

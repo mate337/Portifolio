@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 240" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="bhGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8c984"/>
+      <stop offset="50%" stop-color="#d4a65a"/>
+      <stop offset="100%" stop-color="#8d6a30"/>
+    </linearGradient>
+  </defs>
+
+  <!-- top ornament rule -->
+  <g stroke="url(#bhGold)" stroke-width="1" fill="none" opacity="0.85">
+    <line x1="80" y1="38" x2="240" y2="38"/>
+    <line x1="360" y1="38" x2="520" y2="38"/>
+    <circle cx="300" cy="38" r="3" fill="url(#bhGold)"/>
+    <line x1="280" y1="38" x2="290" y2="38"/>
+    <line x1="310" y1="38" x2="320" y2="38"/>
+  </g>
+
+  <!-- monogram B|H -->
+  <g transform="translate(300, 120)" text-anchor="middle">
+    <text font-family="Cormorant Garamond, 'Playfair Display', serif" font-style="italic" font-weight="300" font-size="84" fill="url(#bhGold)" letter-spacing="2">
+      Bal Harbour
+    </text>
+  </g>
+
+  <!-- subline -->
+  <g transform="translate(300, 175)" text-anchor="middle">
+    <text font-family="Inter, sans-serif" font-weight="500" font-size="11" fill="url(#bhGold)" letter-spacing="10" opacity="0.9">
+      EMPREENDIMENTO · PIÇARRAS · SC
+    </text>
+  </g>
+
+  <!-- bottom ornament rule -->
+  <g stroke="url(#bhGold)" stroke-width="1" fill="none" opacity="0.85">
+    <line x1="80" y1="205" x2="240" y2="205"/>
+    <line x1="360" y1="205" x2="520" y2="205"/>
+    <circle cx="300" cy="205" r="3" fill="url(#bhGold)"/>
+    <line x1="280" y1="205" x2="290" y2="205"/>
+    <line x1="310" y1="205" x2="320" y2="205"/>
+  </g>
+</svg>

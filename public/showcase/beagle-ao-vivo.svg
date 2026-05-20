@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="denimBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c1a3f"/>
+      <stop offset="55%" stop-color="#162a5c"/>
+      <stop offset="100%" stop-color="#0a1635"/>
+    </linearGradient>
+    <linearGradient id="denimFiber" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3a5594" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#5570b5" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#3a5594" stop-opacity="0.25"/>
+    </linearGradient>
+    <pattern id="weave" width="6" height="6" patternUnits="userSpaceOnUse">
+      <path d="M0 3 L6 3 M3 0 L3 6" stroke="#3a5594" stroke-width="0.4" opacity="0.18"/>
+    </pattern>
+  </defs>
+
+  <rect width="1400" height="900" fill="url(#denimBg)"/>
+  <rect width="1400" height="900" fill="url(#weave)"/>
+  <rect width="1400" height="900" fill="url(#denimFiber)" opacity="0.5"/>
+
+  <!-- panel dividers -->
+  <line x1="467" y1="60" x2="467" y2="840" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+  <line x1="933" y1="60" x2="933" y2="840" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+
+  <!-- panel 1 -->
+  <g transform="translate(233, 450)" text-anchor="middle">
+    <g transform="translate(0, -110)">
+      <circle r="42" fill="none" stroke="#fff" stroke-width="2.5"/>
+      <text y="6" font-family="Inter, sans-serif" font-weight="900" font-size="20" fill="#fff" letter-spacing="2">BEAGLE</text>
+    </g>
+    <text y="-30" font-family="Inter, sans-serif" font-weight="900" font-size="42" fill="#fff" letter-spacing="-1.5">O JEANS</text>
+    <text y="14" font-family="Inter, sans-serif" font-weight="900" font-size="42" fill="#fff" letter-spacing="-1.5">QUE ESTICA</text>
+    <text y="58" font-family="Inter, sans-serif" font-weight="900" font-size="42" fill="#fff" letter-spacing="-1.5">DE VERDADE</text>
+    <g transform="translate(0, 130)">
+      <text font-family="Inter, sans-serif" font-weight="800" font-size="28" fill="#fff" letter-spacing="1">[AO VIVO]</text>
+      <text y="22" font-family="Inter, sans-serif" font-weight="500" font-size="9" fill="#fff" letter-spacing="3">O JEANS DA VIDA. PARA A VIDA.</text>
+    </g>
+  </g>
+
+  <!-- panel 2 -->
+  <g transform="translate(700, 450)" text-anchor="middle">
+    <g transform="translate(0, -150)">
+      <circle r="32" fill="none" stroke="#fff" stroke-width="2"/>
+      <text y="5" font-family="Inter, sans-serif" font-weight="900" font-size="16" fill="#fff" letter-spacing="2">BEAGLE</text>
+    </g>
+    <text y="-80" font-family="Inter, sans-serif" font-weight="900" font-size="56" fill="#fff" letter-spacing="-2">O JEANS QUE</text>
+    <text y="-20" font-family="Inter, sans-serif" font-weight="900" font-size="56" fill="#fff" letter-spacing="-2">NÃO DESBOTA.</text>
+    <g transform="translate(0, 40)">
+      <text font-family="Inter, sans-serif" font-weight="800" font-size="34" fill="#fff" letter-spacing="2">[AO VIVO]</text>
+      <text y="28" font-family="Inter, sans-serif" font-weight="500" font-size="11" fill="#fff" letter-spacing="3">O JEANS DA VIDA. PARA A VIDA.</text>
+    </g>
+    <!-- washing machine silhouette -->
+    <g transform="translate(0, 200)" opacity="0.85">
+      <rect x="-90" y="-65" width="180" height="130" rx="6" fill="#f5f5f5" opacity="0.9"/>
+      <circle r="55" fill="#0c1a3f"/>
+      <circle r="42" fill="none" stroke="#2a3d6e" stroke-width="2"/>
+      <circle r="28" fill="#1a2a55"/>
+      <circle cx="68" cy="-48" r="4" fill="#0c1a3f"/>
+      <rect x="-78" y="-58" width="40" height="8" rx="2" fill="#0c1a3f"/>
+    </g>
+  </g>
+
+  <!-- panel 3 -->
+  <g transform="translate(1166, 450)" text-anchor="middle">
+    <g transform="translate(0, -140)">
+      <circle r="36" fill="none" stroke="#fff" stroke-width="2"/>
+      <text y="5" font-family="Inter, sans-serif" font-weight="900" font-size="18" fill="#fff" letter-spacing="2">BEAGLE</text>
+    </g>
+    <text y="-50" font-family="Inter, sans-serif" font-weight="900" font-size="56" fill="#fff" letter-spacing="-2">O JEANS</text>
+    <text y="10" font-family="Inter, sans-serif" font-weight="900" font-size="46" fill="#fff" letter-spacing="-2">FEITO PARA VIVER.</text>
+    <g transform="translate(0, 120)">
+      <text font-family="Inter, sans-serif" font-weight="800" font-size="28" fill="#fff" letter-spacing="2">[AO VIVO]</text>
+      <text y="22" font-family="Inter, sans-serif" font-weight="500" font-size="9" fill="#fff" letter-spacing="3">O JEANS DA VIDA. PARA A VIDA.</text>
+    </g>
+  </g>
+
+  <!-- corner marker -->
+  <g transform="translate(40, 60)">
+    <text font-family="Inter, sans-serif" font-weight="500" font-size="10" fill="#fff" opacity="0.6" letter-spacing="4">AO VIVO · JEANS · 2022</text>
+  </g>
+  <g transform="translate(1360, 60)" text-anchor="end">
+    <text font-family="Inter, sans-serif" font-weight="500" font-size="10" fill="#fff" opacity="0.6" letter-spacing="4">CAMPANHA · 03 PEÇAS</text>
+  </g>
+</svg>

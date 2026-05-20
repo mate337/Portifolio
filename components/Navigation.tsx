@@ -32,45 +32,49 @@ export function Navigation() {
 
   return (
     <>
-      {/* Top bar */}
+      {/* Top bar — smoke / minimalist */}
       <motion.header
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-700 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 backdrop-blur-xl border-b ${
           scrolled
-            ? "bg-cream/85 backdrop-blur-md border-b border-hairline"
-            : "bg-transparent"
+            ? "bg-ink/55 border-cream/10 shadow-[0_2px_30px_-12px_rgba(0,0,0,0.4)]"
+            : "bg-ink/30 border-cream/5"
         }`}
       >
-        <div className="px-6 md:px-10 lg:px-14 py-5 md:py-6 flex items-center justify-between">
+        <div className="px-6 md:px-10 lg:px-14 py-4 md:py-5 flex items-center justify-between">
           <a
             href="#hero"
-            className="font-sans font-black tracking-[0.42em] text-xs text-ink hover:text-bronze transition-colors duration-500"
+            className="font-sans font-black tracking-[0.42em] text-xs text-cream hover:text-bronze-200 transition-colors duration-500"
           >
             {PROFILE.brand}.
           </a>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8 lg:gap-10">
+          <nav className="hidden md:flex items-center gap-7 lg:gap-9">
             {NAV_LINKS.slice(1).map((link) => {
               const isActive = activeSection === link.href.slice(1);
               return (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="group relative flex items-center gap-2 text-[0.65rem] font-medium tracking-[0.32em] uppercase"
+                  className="group relative flex items-center gap-2 text-[0.62rem] font-medium tracking-[0.32em] uppercase"
                 >
-                  <span className="font-mono text-bronze/60">{link.index}</span>
+                  <span className="font-mono text-bronze-200/60">
+                    {link.index}
+                  </span>
                   <span
                     className={`transition-colors duration-500 ${
-                      isActive ? "text-ink" : "text-ink-mute hover:text-ink"
+                      isActive
+                        ? "text-cream"
+                        : "text-cream/55 hover:text-cream"
                     }`}
                   >
                     {link.label}
                   </span>
                   <span
-                    className={`absolute -bottom-1 left-[1.7rem] right-0 h-px origin-left bg-bronze transition-transform duration-700 ease-editorial ${
+                    className={`absolute -bottom-1 left-[1.7rem] right-0 h-px origin-left bg-bronze-200 transition-transform duration-700 ease-editorial ${
                       isActive ? "scale-x-100" : "scale-x-0"
                     }`}
                   />
@@ -81,7 +85,7 @@ export function Navigation() {
 
           <a
             href="#contato"
-            className="hidden md:inline-flex items-center gap-2 text-[0.65rem] font-medium tracking-[0.32em] uppercase border border-ink/20 hover:border-ink hover:bg-ink hover:text-cream px-5 py-2.5 rounded-full transition-all duration-500"
+            className="hidden md:inline-flex items-center gap-2 text-[0.62rem] font-medium tracking-[0.32em] uppercase border border-cream/25 text-cream hover:border-cream hover:bg-cream hover:text-ink px-5 py-2 rounded-full transition-all duration-500"
           >
             <span>Iniciar Conversa</span>
             <span aria-hidden>→</span>
@@ -90,7 +94,7 @@ export function Navigation() {
           {/* Mobile burger */}
           <button
             onClick={() => setMenuOpen(true)}
-            className="md:hidden text-[0.65rem] tracking-[0.42em] uppercase font-medium"
+            className="md:hidden text-[0.65rem] tracking-[0.42em] uppercase font-medium text-cream"
             aria-label="Abrir menu"
           >
             Menu

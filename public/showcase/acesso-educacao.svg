@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="aceBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1b3556"/>
+      <stop offset="50%" stop-color="#2a4d7a"/>
+      <stop offset="100%" stop-color="#15263d"/>
+    </linearGradient>
+    <radialGradient id="lightLeft" cx="20%" cy="30%" r="55%">
+      <stop offset="0%" stop-color="#f3d8a0" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#1b3556" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="aceVignette" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#000" stop-opacity="0.45"/>
+      <stop offset="50%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.25"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1400" height="900" fill="url(#aceBg)"/>
+  <rect width="1400" height="900" fill="url(#lightLeft)"/>
+
+  <!-- subtle plant silhouettes left -->
+  <g opacity="0.18" fill="#0a1a2e">
+    <path d="M50 700 Q100 500 80 400 Q60 350 90 320 Q110 350 120 420 Q130 520 110 700 Z"/>
+    <path d="M180 720 Q200 580 170 480 Q150 420 180 380 Q200 420 215 510 Q225 620 215 720 Z"/>
+    <ellipse cx="320" cy="180" rx="60" ry="22" transform="rotate(-25 320 180)"/>
+    <ellipse cx="350" cy="220" rx="45" ry="18" transform="rotate(-30 350 220)"/>
+  </g>
+
+  <!-- figures silhouettes right -->
+  <g opacity="0.28" fill="#0a1a2e">
+    <ellipse cx="950" cy="490" rx="55" ry="80"/>
+    <rect x="900" y="540" width="110" height="180" rx="20"/>
+    <ellipse cx="1080" cy="510" rx="50" ry="70"/>
+    <rect x="1035" y="550" width="95" height="170" rx="18"/>
+    <ellipse cx="1230" cy="470" rx="60" ry="85"/>
+    <rect x="1180" y="525" width="115" height="200" rx="20"/>
+  </g>
+
+  <!-- guitar silhouette left -->
+  <g opacity="0.32" fill="#3a2818">
+    <ellipse cx="280" cy="560" rx="90" ry="105"/>
+    <rect x="270" y="380" width="22" height="180" rx="4"/>
+    <ellipse cx="280" cy="560" rx="55" ry="65" fill="#0a1a2e"/>
+  </g>
+
+  <!-- Acesso Educação logo top-left -->
+  <g transform="translate(80, 90)">
+    <circle r="38" fill="none" stroke="#fff" stroke-width="2"/>
+    <path d="M-18 -8 Q-14 -22 0 -22 Q14 -22 18 -8 Q14 6 0 10 Q-14 6 -18 -8 Z M-8 -8 L-4 -2 L0 -8 L4 -2 L8 -8" fill="#fff"/>
+    <g transform="translate(55, -8)">
+      <text font-family="Inter, sans-serif" font-weight="600" font-size="14" fill="#fff" letter-spacing="3">ACESSO</text>
+      <text y="20" font-family="Inter, sans-serif" font-weight="400" font-size="13" fill="#fff" letter-spacing="4">EDUCAÇÃO</text>
+    </g>
+  </g>
+
+  <!-- blue swoosh top-right -->
+  <path d="M1400 0 Q1280 60 1240 160 Q1340 200 1400 100 Z" fill="#3aa8e6" opacity="0.85"/>
+
+  <!-- vignette overlay -->
+  <rect width="1400" height="900" fill="url(#aceVignette)"/>
+
+  <!-- main caption -->
+  <g transform="translate(1000, 680)" text-anchor="end">
+    <text font-family="Brush Script MT, cursive" font-style="italic" font-size="78" fill="#3aa8e6" font-weight="600">Experiências</text>
+    <text y="42" font-family="Cormorant Garamond, serif" font-style="italic" font-size="38" fill="#fff" font-weight="500">Que Transformam</text>
+    <g transform="translate(0, 100)">
+      <text font-family="Inter, sans-serif" font-weight="700" font-size="44" fill="#fff" letter-spacing="-1">learning b<tspan fill="#3aa8e6">oo</tspan>k</text>
+      <text y="40" font-family="Cormorant Garamond, serif" font-style="italic" font-size="30" fill="#3aa8e6" font-weight="500">Neural HeadBand</text>
+    </g>
+  </g>
+
+  <!-- corner meta -->
+  <g transform="translate(80, 830)">
+    <text font-family="Inter, sans-serif" font-weight="500" font-size="10" fill="#fff" opacity="0.55" letter-spacing="4">ACESSO EDUCAÇÃO · CAMPANHA · 2024</text>
+  </g>
+  <g transform="translate(1340, 830)" text-anchor="end">
+    <text font-family="Inter, sans-serif" font-weight="500" font-size="10" fill="#fff" opacity="0.55" letter-spacing="4">DIREÇÃO DE ARTE</text>
+  </g>
+</svg>

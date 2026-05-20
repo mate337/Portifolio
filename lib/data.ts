@@ -86,7 +86,7 @@ export type WorkSlug =
   | "bal-harbour"
   | "collection-villas"
   | "formula-beagle"
-  | "cosmos"
+  | "pima"
   | "escola-alunos"
   | "ao-vivo-jeans";
 
@@ -100,12 +100,53 @@ export type WorkItem = {
   year: string;
   industry: string;
   description: string;
+  highlight?: string;
+  logo?: string;
   scope: string[];
   metrics?: { label: string; value: string }[];
   href: string;
   accentColor: string;
   background: string;
 };
+
+export const SHOWCASE = [
+  {
+    slug: "ao-vivo-jeans",
+    image: "/showcase/beagle-ao-vivo.svg",
+    client: "AO VIVO Jeans",
+    title: "Campanha Beagle",
+    caption: "Direção de arte para a campanha tríptica — três conceitos, uma só voz urbana.",
+    tag: "Moda · Campanha",
+    year: "2022",
+  },
+  {
+    slug: "pima",
+    image: "/showcase/pima.svg",
+    client: "Pima",
+    title: "Logotipo autoral",
+    caption: "Sistema de marca construído sobre o contraste entre o sans rigoroso e o itálico romano.",
+    tag: "Branding · Identidade",
+    year: "2024",
+  },
+  {
+    slug: "acesso-educacao",
+    image: "/showcase/acesso-educacao.svg",
+    client: "Acesso Educação",
+    title: "Experiências que transformam",
+    caption: "Direção de arte e identidade para o Learning Book · Neural HeadBand — educação como afeto.",
+    tag: "Educação · Direção",
+    year: "2024",
+  },
+  {
+    slug: "formula-beagle",
+    image: "/showcase/formula-beagle.svg",
+    client: "Fórmula Beagle",
+    title: "Fórmula de encantar e vender",
+    caption: "Direção autoral e ilustração 3D — encantamento como estratégia de marca.",
+    tag: "Pet · Lifestyle",
+    year: "2023",
+  },
+] as const;
 
 export const WORKS: WorkItem[] = [
   {
@@ -161,6 +202,9 @@ export const WORKS: WorkItem[] = [
     industry: "Empreendimento de Alto Padrão",
     description:
       "Autoral. Moderno. Natural. Artístico. Empreendimento em Piçarras (SC) que traduz o morar contemporâneo em sua forma mais sofisticada — com vista permanente para o mar.",
+    highlight:
+      "Um desdobramento completo: do naming ao livro de marca, da fotografia autoral à curadoria de materiais físicos de venda. Seis frentes criativas operando como uma única narrativa visual — onde cada peça reforça o posicionamento de alto padrão e a vocação contemplativa do empreendimento.",
+    logo: "/showcase/bal-harbour-logo.svg",
     scope: ["Naming", "Identidade visual", "Direção fotográfica", "Livro de marca", "Materiais de venda"],
     metrics: [
       { value: "Piçarras", label: "Santa Catarina" },
@@ -209,20 +253,20 @@ export const WORKS: WorkItem[] = [
     background: "linear-gradient(135deg, #1A0E00 0%, #5C3200 40%, #2D1A00 100%)",
   },
   {
-    slug: "cosmos",
+    slug: "pima",
     index: "06",
-    client: "Cosmos Securitizadora",
-    title: "Cosmos",
-    subtitle: "Securitizadora",
-    category: "Branding · Mercado Financeiro",
-    year: "2023",
-    industry: "Finanças",
+    client: "Pima",
+    title: "Pima.",
+    subtitle: "O melhor e ponto.",
+    category: "Branding · Identidade Visual",
+    year: "2024",
+    industry: "Marca Autoral",
     description:
-      "Securitizadora de créditos com identidade que mistura precisão matemática e profundidade astronômica. Tipografia geométrica, paleta cósmica.",
-    scope: ["Identidade visual", "Sistema de aplicação", "Brand book"],
+      "Logotipo construído pela tensão entre o geométrico e o serifado — um sistema visual que mistura sans-black com itálico romano. Resultado: uma assinatura que sussurra requinte e grita personalidade.",
+    scope: ["Naming", "Logotipo", "Sistema de aplicação", "Brand book"],
     href: "https://www.behance.net/matheusmartins10",
-    accentColor: "#0A1F5C",
-    background: "linear-gradient(135deg, #020818 0%, #0A1F5C 40%, #06102E 100%)",
+    accentColor: "#1C1A17",
+    background: "linear-gradient(135deg, #1C1A17 0%, #3E3833 50%, #0F0E0C 100%)",
   },
   {
     slug: "escola-alunos",
@@ -300,9 +344,10 @@ export const NAV_LINKS = [
   { label: "Início", href: "#hero", index: "00" },
   { label: "Especialidades", href: "#especialidades", index: "01" },
   { label: "Sobre", href: "#sobre", index: "02" },
-  { label: "Trabalhos", href: "#trabalhos", index: "03" },
-  { label: "Serviços", href: "#servicos", index: "04" },
-  { label: "Contato", href: "#contato", index: "05" },
+  { label: "Galeria", href: "#galeria", index: "03" },
+  { label: "Trabalhos", href: "#trabalhos", index: "04" },
+  { label: "Serviços", href: "#servicos", index: "05" },
+  { label: "Contato", href: "#contato", index: "06" },
 ] as const;
 
 export const TICKER_ITEMS = [

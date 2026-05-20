@@ -91,13 +91,14 @@ export function Spotlight() {
                           {work.client.toUpperCase()}
                         </span>
                         {work.logo ? (
-                          <div className="relative w-full max-w-[480px] mx-auto aspect-[5/2]">
+                          <div className="relative w-full max-w-[420px] mx-auto aspect-[3/1] py-2">
                             <Image
                               src={work.logo}
                               alt={`Logotipo ${work.title} ${work.subtitle ?? ""}`.trim()}
                               fill
-                              sizes="(max-width: 768px) 80vw, 480px"
+                              sizes="(max-width: 768px) 80vw, 420px"
                               className="object-contain"
+                              style={{ filter: "brightness(0) invert(1)" }}
                             />
                           </div>
                         ) : (
@@ -156,15 +157,14 @@ export function Spotlight() {
                     </span>
 
                     {work.logo ? (
-                      <div className="mb-2 md:mb-4 max-w-[420px]">
-                        <div className="relative w-full aspect-[5/2]">
+                      <div className="mb-4 md:mb-6 max-w-[360px]">
+                        <div className="relative w-full aspect-[3/1]">
                           <Image
                             src={work.logo}
                             alt={`Logotipo ${work.title} ${work.subtitle ?? ""}`.trim()}
                             fill
-                            sizes="420px"
-                            className="object-contain object-left invert"
-                            style={{ filter: "invert(1) sepia(1) saturate(0.4) hue-rotate(-15deg) brightness(0.55)" }}
+                            sizes="360px"
+                            className="object-contain object-left"
                           />
                         </div>
                       </div>

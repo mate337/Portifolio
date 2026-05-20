@@ -605,6 +605,131 @@ body::after{
   .univ-title{font-size:clamp(3.5rem,20vw,8rem)}
 }
 
+/* ════════ GALERIA ════════ */
+#galeria{
+  position:relative;z-index:20;
+  background:#0D0C0A;color:var(--cream);
+  padding:clamp(5rem,12vh,10rem) clamp(2rem,6vw,6rem) clamp(5rem,10vh,8rem);
+  border-top:1px solid rgba(240,235,224,.07);
+}
+.gl-header{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr);
+  gap:clamp(1.5rem,4vw,4rem);
+  align-items:start;
+  max-width:1500px;margin:0 auto clamp(3.5rem,8vh,7rem);
+}
+.gl-meta{
+  display:flex;flex-direction:column;gap:.6rem;
+}
+.gl-eyebrow{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.55rem,.7vw,.65rem);font-weight:700;
+  letter-spacing:.5em;text-transform:uppercase;
+  color:#D4A65A;
+}
+.gl-meta-sub{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.5rem,.65vw,.6rem);font-weight:400;
+  letter-spacing:.42em;text-transform:uppercase;
+  color:rgba(240,235,224,.32);
+}
+.gl-title{
+  font-family:'Cormorant Garamond',serif;
+  font-style:normal;font-weight:300;
+  font-size:clamp(2rem,4.6vw,4.5rem);
+  line-height:1.05;letter-spacing:-.01em;
+  color:var(--cream);
+  margin:0;max-width:24ch;
+}
+.gl-title em{
+  font-style:italic;color:#D4A65A;
+}
+.gl-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(1.5rem,3vw,3rem) clamp(1.5rem,3vw,3rem);
+  max-width:1500px;margin:0 auto;
+}
+.gl-card{
+  margin:0;display:flex;flex-direction:column;gap:clamp(1rem,2vh,1.5rem);
+}
+.gl-card:nth-child(2),
+.gl-card:nth-child(4){margin-top:clamp(2rem,5vh,4rem)}
+.gl-frame{
+  position:relative;aspect-ratio:16/10;overflow:hidden;
+  background:#161410;
+  border:1px solid rgba(240,235,224,.07);
+}
+.gl-frame::after{
+  /* Placeholder ornament when image fails / not yet uploaded */
+  content:attr(data-empty);
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.95rem,1.4vw,1.2rem);
+  color:rgba(240,235,224,.18);
+  pointer-events:none;
+  padding:0 2rem;text-align:center;
+}
+.gl-frame.gl-empty::after{
+  content:"Aguardando imagem em /showcase/" attr(data-filename);
+}
+.gl-frame img{
+  position:relative;z-index:1;
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform 1.6s cubic-bezier(.16,1,.3,1);
+}
+.gl-card:hover .gl-frame img{transform:scale(1.025)}
+.gl-frame .gl-pill{
+  position:absolute;top:clamp(.9rem,1.6vh,1.2rem);
+  z-index:3;
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.45rem,.6vw,.55rem);font-weight:600;
+  letter-spacing:.4em;text-transform:uppercase;
+  color:rgba(240,235,224,.92);
+  background:rgba(10,10,9,.62);backdrop-filter:blur(8px);
+  padding:.45rem .85rem;border-radius:99px;
+  border:1px solid rgba(240,235,224,.12);
+}
+.gl-frame .gl-pill.tag{left:clamp(.9rem,1.6vw,1.2rem)}
+.gl-frame .gl-pill.year{right:clamp(.9rem,1.6vw,1.2rem)}
+
+.gl-cap{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start}
+.gl-cap-idx{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.5rem,.65vw,.58rem);font-weight:600;
+  letter-spacing:.42em;color:#D4A65A;
+  padding-top:.25rem;
+}
+.gl-cap-body{display:flex;flex-direction:column;gap:.45rem}
+.gl-cli{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.5rem,.65vw,.58rem);font-weight:400;
+  letter-spacing:.42em;text-transform:uppercase;
+  color:rgba(240,235,224,.42);
+}
+.gl-name{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:300;
+  font-size:clamp(1.1rem,1.7vw,1.6rem);
+  line-height:1.18;letter-spacing:-.01em;
+  color:var(--cream);
+  margin:0;
+}
+.gl-caption{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.65rem,.82vw,.78rem);font-weight:300;
+  line-height:1.7;
+  color:rgba(240,235,224,.55);
+  margin:0;max-width:42ch;
+}
+
+@media (max-width: 720px){
+  .gl-header{grid-template-columns:1fr;gap:1.2rem}
+  .gl-grid{grid-template-columns:1fr;gap:2.5rem}
+  .gl-card:nth-child(2),
+  .gl-card:nth-child(4){margin-top:0}
+}
+
 /* ════════ FOOTER ════════ */
 #footer{
   position:relative;z-index:20;
@@ -816,9 +941,12 @@ body::after{
   display:flex;justify-content:space-between;align-items:center;
   padding:clamp(1.5rem,3vh,2.5rem) clamp(2rem,5vw,5rem);
 }
-.bh-logo{
-  font-size:clamp(.7rem,1vw,.88rem);font-weight:400;
-  letter-spacing:.45em;color:rgba(240,235,224,.7);
+.bh-logo-img{
+  display:block;
+  height:clamp(14px,1.6vw,22px);
+  width:auto;
+  filter:brightness(0) invert(1);
+  opacity:.75;
 }
 .bh-vetter{
   font-size:clamp(.48rem,.68vw,.58rem);font-weight:400;
@@ -860,9 +988,10 @@ body::after{
   line-height:.88;
 }
 #bh-panel.active .bh-title{opacity:1;transform:translateY(0)}
-.bh-title svg{
-  display:block;width:clamp(220px,38vw,540px);height:auto;
-  filter:drop-shadow(0 2px 14px rgba(0,0,0,.35));
+.bh-title-img{
+  display:block;width:clamp(260px,44vw,620px);height:auto;
+  filter:brightness(0) invert(1) drop-shadow(0 2px 14px rgba(0,0,0,.45));
+  opacity:.96;
 }
 
 .bh-desc{
@@ -876,28 +1005,36 @@ body::after{
 }
 #bh-panel.active .bh-desc{opacity:1;transform:translateY(0)}
 
-.bh-role{
-  font-size:clamp(.68rem,.92vw,.85rem);font-weight:400;
-  letter-spacing:.04em;color:rgba(240,235,224,.78);
-  line-height:1.75;
-  padding:clamp(1.2rem,2.4vh,2rem) 0 0 clamp(.9rem,1.5vw,1.4rem);
+.bh-role-block{
+  position:relative;
+  padding:clamp(1.2rem,2.4vh,2rem) 0 clamp(.4rem,1vh,.8rem) clamp(1.1rem,1.8vw,1.8rem);
   border-left:2px solid #D4A65A;
   margin-top:clamp(.6rem,1.2vh,1rem);
-  max-width:46ch;
-  position:relative;
+  max-width:48ch;
   opacity:0;transform:translateY(10px);
   transition:opacity .7s ease .65s,transform .8s cubic-bezier(.16,1,.3,1) .65s;
 }
-.bh-role::before{
-  content:'DESDOBRAMENTO';
+#bh-panel.active .bh-role-block{opacity:1;transform:translateY(0)}
+.bh-role-eyebrow{
   display:block;
   font-family:'Inter',sans-serif;
-  font-size:clamp(.52rem,.7vw,.62rem);
-  font-weight:700;letter-spacing:.5em;
+  font-size:clamp(.55rem,.74vw,.66rem);
+  font-weight:700;letter-spacing:.55em;
   color:#D4A65A;
-  margin-bottom:clamp(.55rem,1vh,.85rem);
+  margin-bottom:clamp(.75rem,1.4vh,1.1rem);
+  text-transform:uppercase;
 }
-#bh-panel.active .bh-role{opacity:1;transform:translateY(0)}
+.bh-role{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:400;
+  font-size:clamp(.92rem,1.32vw,1.18rem);
+  letter-spacing:.005em;color:rgba(240,235,224,.92);
+  line-height:1.55;
+  margin:0;
+}
+.bh-role::first-letter{
+  font-size:1.55em;color:#D4A65A;margin-right:.04em;
+}
 
 /* Image counter — bottom-right */
 .bh-counter{
@@ -1179,6 +1316,7 @@ body::after{
     <a href="#" data-nav="about">Sobre</a>
     <a href="#" data-nav="works">Projetos</a>
     <a href="#" data-nav="universo">Universo</a>
+    <a href="#galeria" data-nav="galeria">Galeria</a>
     <a href="#" data-nav="footer">Contato</a>
   </nav>
 </header>
@@ -1903,7 +2041,7 @@ body::after{
 
   <!-- Header -->
   <div class="bh-header">
-    <span class="bh-logo">BAL HARBOUR</span>
+    <img class="bh-logo-img" src="/showcase/bal-harbour-logo.svg" alt="Bal Harbour">
     <div class="bh-line"></div>
     <span class="bh-vetter">VETTER</span>
   </div>
@@ -1912,27 +2050,16 @@ body::after{
   <div class="bh-content">
     <div class="bh-eyebrow">PIÇARRAS — SANTA CATARINA</div>
     <div class="bh-title" aria-label="Bal Harbour">
-      <svg viewBox="0 0 540 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bal Harbour">
-        <defs>
-          <linearGradient id="bhGold" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#F0EBE0"/>
-            <stop offset="1" stop-color="#E2D9C2"/>
-          </linearGradient>
-        </defs>
-        <text x="270" y="100" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-style="italic" font-weight="300" font-size="118" fill="url(#bhGold)" letter-spacing="-1">Bal</text>
-        <g stroke="#D4A65A" stroke-width="1" opacity=".6">
-          <line x1="120" y1="118" x2="220" y2="118"/>
-          <circle cx="270" cy="118" r="3" fill="#D4A65A" stroke="none"/>
-          <line x1="320" y1="118" x2="420" y2="118"/>
-        </g>
-        <text x="270" y="205" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-style="italic" font-weight="300" font-size="118" fill="url(#bhGold)" letter-spacing="-1">Harbour</text>
-      </svg>
+      <img class="bh-title-img" src="/showcase/bal-harbour-logo.svg" alt="Bal Harbour">
     </div>
     <div class="bh-desc">
       Autoral. Moderno. Natural. Artístico. Um empreendimento que traduz o morar contemporâneo em sua forma mais sofisticada, com vista permanente para o mar.
     </div>
-    <div class="bh-role">
-      Direção de arte do pré-lançamento ao lançamento oficial — redes sociais, catálogos impressos, editoriais fotográficos, ativações de marca, identidade visual completa e materiais de ponto de venda.
+    <div class="bh-role-block">
+      <span class="bh-role-eyebrow">¶ Desdobramento</span>
+      <p class="bh-role">
+        Direção de arte do pré-lançamento ao lançamento oficial — redes sociais, catálogos impressos, editoriais fotográficos, ativações de marca, identidade visual completa e materiais de ponto de venda.
+      </p>
     </div>
   </div>
 
@@ -2044,6 +2171,87 @@ body::after{
     <div class="wk-bullet" data-wk-b="3"></div>
   </div>
 </div>
+
+<!-- ════════ GALERIA ════════ -->
+<section id="galeria">
+  <div class="gl-header">
+    <div class="gl-meta">
+      <span class="gl-eyebrow">¶ Galeria</span>
+      <span class="gl-meta-sub">Pg. 005 · Recortes visuais</span>
+    </div>
+    <h2 class="gl-title">Fragmentos de <em>campanhas, marcas e direção</em> — o trabalho falando por si.</h2>
+  </div>
+
+  <div class="gl-grid">
+    <!-- 01 — AO VIVO Jeans -->
+    <figure class="gl-card">
+      <div class="gl-frame" data-filename="beagle-ao-vivo.jpg" onclick="void(0)">
+        <span class="gl-pill tag">Moda · Campanha</span>
+        <span class="gl-pill year">2022</span>
+        <img src="/showcase/beagle-ao-vivo.jpg" alt="AO VIVO Jeans — Campanha Beagle" loading="lazy" onerror="this.parentNode.classList.add('gl-empty');this.remove();">
+      </div>
+      <figcaption class="gl-cap">
+        <span class="gl-cap-idx">/01</span>
+        <div class="gl-cap-body">
+          <span class="gl-cli">AO VIVO Jeans</span>
+          <h3 class="gl-name">Campanha Beagle</h3>
+          <p class="gl-caption">Direção de arte para a campanha tríptica — três conceitos, uma só voz urbana.</p>
+        </div>
+      </figcaption>
+    </figure>
+
+    <!-- 02 — Pima -->
+    <figure class="gl-card">
+      <div class="gl-frame" data-filename="pima.jpg">
+        <span class="gl-pill tag">Branding · Identidade</span>
+        <span class="gl-pill year">2024</span>
+        <img src="/showcase/pima.jpg" alt="Pima — Logotipo autoral" loading="lazy" onerror="this.parentNode.classList.add('gl-empty');this.remove();">
+      </div>
+      <figcaption class="gl-cap">
+        <span class="gl-cap-idx">/02</span>
+        <div class="gl-cap-body">
+          <span class="gl-cli">Pima</span>
+          <h3 class="gl-name">Logotipo autoral</h3>
+          <p class="gl-caption">Sistema de marca construído sobre o contraste entre o sans rigoroso e o itálico romano.</p>
+        </div>
+      </figcaption>
+    </figure>
+
+    <!-- 03 — Acesso Educação -->
+    <figure class="gl-card">
+      <div class="gl-frame" data-filename="acesso-educacao.jpg">
+        <span class="gl-pill tag">Educação · Direção</span>
+        <span class="gl-pill year">2024</span>
+        <img src="/showcase/acesso-educacao.jpg" alt="Acesso Educação — Learning Book" loading="lazy" onerror="this.parentNode.classList.add('gl-empty');this.remove();">
+      </div>
+      <figcaption class="gl-cap">
+        <span class="gl-cap-idx">/03</span>
+        <div class="gl-cap-body">
+          <span class="gl-cli">Acesso Educação</span>
+          <h3 class="gl-name">Experiências que transformam</h3>
+          <p class="gl-caption">Direção de arte e identidade para o Learning Book · Neural HeadBand — educação como afeto.</p>
+        </div>
+      </figcaption>
+    </figure>
+
+    <!-- 04 — Fórmula Beagle -->
+    <figure class="gl-card">
+      <div class="gl-frame" data-filename="formula-beagle.jpg">
+        <span class="gl-pill tag">Pet · Lifestyle</span>
+        <span class="gl-pill year">2023</span>
+        <img src="/showcase/formula-beagle.jpg" alt="Fórmula Beagle" loading="lazy" onerror="this.parentNode.classList.add('gl-empty');this.remove();">
+      </div>
+      <figcaption class="gl-cap">
+        <span class="gl-cap-idx">/04</span>
+        <div class="gl-cap-body">
+          <span class="gl-cli">Fórmula Beagle</span>
+          <h3 class="gl-name">Fórmula de encantar e vender</h3>
+          <p class="gl-caption">Direção autoral e ilustração 3D — encantamento como estratégia de marca.</p>
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+</section>
 
 <!-- ════════ FOOTER ════════ -->
 <footer id="footer">
@@ -2412,6 +2620,7 @@ document.querySelectorAll('#topnav [data-nav]').forEach(a => {
     if (t === 'about')    target = absTop(abSpacer) + wh*0.1;
     if (t === 'works')    target = absTop(wrSpacer) + wh*0.1;
     if (t === 'universo') target = universo.offsetTop;
+    if (t === 'galeria')  target = document.getElementById('galeria').offsetTop - 20;
     if (t === 'footer')   target = document.getElementById('footer').offsetTop;
     window.scrollTo({top: target, behavior:'smooth'});
   });

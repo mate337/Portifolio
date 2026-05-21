@@ -6,24 +6,36 @@ Não precisa de build, não precisa rodar nada — basta dar `git add` no arquiv
 
 ---
 
-## Galeria (seção após "Sobre o Criativo")
+## Convenção de nomes — IMPORTANTE
 
-O `index.html` está esperando exatamente estes 4 arquivos. Quando você dropar eles aqui, a galeria preenche automaticamente.
+Sempre use **kebab-case** (minúsculas, hífens em vez de espaços, sem acento):
 
-| Nome esperado          | Projeto                      | Formato aceito      | Proporção sugerida |
-| ---------------------- | ---------------------------- | ------------------- | ------------------ |
-| `beagle-ao-vivo.jpg`   | AO VIVO Jeans · Beagle       | `.jpg` ou `.png`    | 16:10 (1400×900)   |
-| `pima.jpg`             | Pima · Logotipo autoral      | `.jpg` ou `.png`    | 16:10 (1400×900)   |
-| `acesso-educacao.jpg`  | Acesso Educação · Learning Book | `.jpg` ou `.png` | 16:10 (1400×900)   |
-| `formula-beagle.jpg`   | Fórmula Beagle               | `.jpg` ou `.png`    | 16:10 (1400×900)   |
+- ✅ `uma-escola-feita-por-alunos.png`
+- ❌ `Uma escola feita por alunos.png` (espaços e maiúsculas podem dar 404 em CDNs)
 
-### Quer usar PNG em vez de JPG?
+---
 
-Coloque o arquivo como `beagle-ao-vivo.png` e edite uma linha no `index.html` (procure por `/showcase/beagle-ao-vivo.jpg` e troque a extensão). Mesma coisa pros outros 3.
+## Arquivos atuais (Galeria + Works carousel)
 
-### Quer trocar o nome do arquivo?
+O `index.html` está esperando exatamente estes 4 arquivos. Quando você dropar eles aqui, a galeria e o background dos slides preenchem automaticamente.
 
-Mesma regra: edita a linha correspondente no `index.html`. Os 4 paths estão em ordem na seção `<!-- ══ GALERIA PANEL ══ -->`.
+| Arquivo                              | Projeto                            |
+| ------------------------------------ | ---------------------------------- |
+| `jeans.webp`                         | AO VIVO Jeans · Campanha Beagle    |
+| `pima.png`                           | Pima · Logotipo autoral            |
+| `uma-escola-feita-por-alunos.png`    | Escola Construtiva                 |
+| `formula-beagle.png`                 | Fórmula Beagle                     |
+
+### Trocar uma imagem
+
+Substitui o arquivo pelo novo (mesmo nome). Commit + push. Pronto.
+
+### Trocar o nome ou a extensão
+
+Mesma regra: renomeia o arquivo no GitHub e edita a linha correspondente no `index.html`. Os 8 paths estão em duas seções:
+
+- 4× em `<!-- ══ WORKS PANEL ══ -->` (linhas próximas a `wk-bg`)
+- 4× em `<!-- ════════ GALERIA ════════ -->` (procure `gl-frame`)
 
 ---
 
@@ -33,7 +45,7 @@ Mesma regra: edita a linha correspondente no `index.html`. Os 4 paths estão em 
 | ------------------------ | -------------------------------------------------- |
 | `bal-harbour-logo.svg`   | No card do Bal Harbour (em branco) e no título grande (em cream) |
 
-Se quiser trocar o logo do Bal Harbour, sobrescreve esse arquivo. Mantenha o SVG monocromático (uma cor só) — o site aplica os filtros de cor automaticamente.
+Mantenha o SVG monocromático (uma cor só) — o site aplica os filtros de cor automaticamente.
 
 ---
 

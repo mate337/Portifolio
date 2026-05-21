@@ -1,0 +1,15 @@
+app
+components
+lib
+node_modules
+.next
+next.config.js
+next-env.d.ts
+tsconfig.json
+tailwind.config.ts
+postcss.config.mjs
+.eslintrc.json
+package.json
+package-lock.json
+README.md
+reference
